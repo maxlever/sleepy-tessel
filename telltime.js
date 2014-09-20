@@ -1,8 +1,12 @@
+
+//comment all tessel stuff if you want to test locally
 var tessel = require('tessel');
 
 var gpio = tessel.port['GPIO']; // select the GPIO port
 var myPin = gpio.pin['G6'];
 
+
+//uncomment this if you want to test locally.
 // myPin = {
 // 	output: function(val){
 // 		console.log('set to: '+val);
