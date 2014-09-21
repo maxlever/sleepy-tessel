@@ -1,24 +1,22 @@
-// Any copyright is dedicated to the Public Domain.
-// http://creativecommons.org/publicdomain/zero/1.0/
-
 /*********************************************
-This ambient module example console.logs
-ambient light and sound levels and whenever a
+This ambient module example console.logs 
+ambient light and sound levels and whenever a 
 specified light or sound level trigger is met.
 *********************************************/
 
 var tessel = require('tessel');
-var ambientlib = require('ambient-attx4');
+var ambientlib = require('ambient-attx4');// Replace '../' with 'ambient-attx4' in your own code
 
 var ambient = ambientlib.use(tessel.port['A']);
-
+var ambient_stream = fs.createWriteStream('data.tsv', {flags: 'w'});
+stream.write("time\tLight\tSound\n");
+var start = new Date();
 ambient.on('ready', function () {
  // Get points of light and sound data.
   setInterval( function () {
     ambient.getLightLevel( function(err, ldata) {
-      if (err) throw err;
       ambient.getSoundLevel( function(err, sdata) {
-        if (err) throw err;
+        stream.write(String(new Date()-start) + "\t" + String(ldata.toFixed(8)) + "\t" + String(sdata.toFixed(8)) + "\n");
         console.log("Light level:", ldata.toFixed(8), " ", "Sound Level:", sdata.toFixed(8));
     });
   })}, 500); // The readings will happen every .5 seconds unless the trigger is hit
@@ -33,7 +31,7 @@ ambient.on('ready', function () {
     // Clear the trigger so it stops firing
     ambient.clearLightTrigger();
     //After 1.5 seconds reset light trigger
-    setTimeout(function () {
+    setTimeout(function () { 
 
         ambient.setLightTrigger(0.5);
 
@@ -51,7 +49,7 @@ ambient.on('ready', function () {
     ambient.clearSoundTrigger();
 
     //After 1.5 seconds reset sound trigger
-    setTimeout(function () {
+    setTimeout(function () { 
 
         ambient.setSoundTrigger(0.1);
 
