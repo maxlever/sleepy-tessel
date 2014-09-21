@@ -4,7 +4,7 @@ var express = require('express'),
 
 
 var port = 9929;
-var host = '10.20.85.89'
+var host = '10.21.55.31'
 var app	= express();
 
 //use middlewear

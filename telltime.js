@@ -29,7 +29,6 @@ var buzzer = gpio.pin['G5'];
 buzzer.output(1);
 led.output(1);
 led.output(0);
-gpio.digital[1].write(1);
 gpio.digital[1].write(0);
 
 console.log('Fired one output');
@@ -44,21 +43,25 @@ buzzer.output(0);
 
 setInterval(function start () {
 	console.log('immediate started');
-  http.get('http://10.20.85.89:9929/api/wake', function (res) {
+  http.get('http://10.21.55.31:9929/api/wake', function (res) {
     console.log('http get initiated');
     var bufs = [];
     res.on('data', function (data) {
       bufs.push(new Buffer(data));
       json = JSON.parse((new Buffer(data)).toString());
       console.log(json);
+      gpio.digital[1].write(1);
+
     });
 
     res.on('end', function () {
     	console.log('http get resolved')
+    	gpio.digital[1].write(1);
+
     	if(json.ringing){
     		alarm = true;
     	}else{
-    		buzzer.output(0);
+			gpio.pwmFrequency(0);
 				led.output(0);
 				gpio.digital[1].write(0);
     		alarm = false;
@@ -87,8 +90,9 @@ setInterval(function(){
 				gpio.digital[1].write(1);
 	}else{
 		if(rmint){clearInterval(rmint)};
+
 		console.log('alarm did not ring');
-				buzzer.output(0);
+				gpio.pwmFrequency(0);
 				led.output(0);
 				gpio.digital[1].write(0);
 	}
