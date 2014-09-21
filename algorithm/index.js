@@ -37,3 +37,22 @@ for(var i = 0; i<5; i++){
 	return output;
 
 }
+
+var add10 = function(inputDate){
+	var mins = inputDate.getMinutes(),
+			hours = inputDate.getHours();
+
+	mins = mins + 1;
+
+	if(mins >= 59){
+		hours++;
+		mins = 0;
+	}
+
+	var outputDate = new Date(inputDate.toString());
+	outputDate.setHours(hours);
+	outputDate.setMinutes(mins);
+	return outputDate;
+}
+
+exports.add10 = add10;

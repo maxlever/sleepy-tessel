@@ -3,8 +3,8 @@ var express = require('express'),
 		morgan = require('morgan');
 
 
-var port = process.env.PORT || 8080;
-
+var port = 9929;
+var host = '10.20.85.89'
 var app	= express();
 
 //use middlewear
@@ -14,7 +14,8 @@ app.use(morgan());
 
 
 require('./app/routes.js')(app);
-require('./app/api.js')(app);
+require('./app/api.js')(app, express);
 
-app.listen(port);
-console.log('Now listening localhost:' + port);
+
+app.listen(port, host);
+console.log('Now listening ' + host + ':' + port);
