@@ -21,9 +21,10 @@ console.log('Fired one output');
 setTimeout(function(){
 	console.log('alarm rang')
 	setInterval(function(){
-			gpio.pin['G5'].output(1);
+				gpio.pin['G5'].output(1);
+
 			myPin.output(1);
-			myPin.output(0);
+			// myPin.output(0);
 	}, 1000);
 
 }, 4000);
