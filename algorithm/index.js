@@ -3,7 +3,7 @@ var add90 = function(inputDate){
 	var mins = inputDate.getMinutes(),
 			hours = inputDate.getHours();
 
-	mins = mins + 90;
+	mins = mins + 10;
 
 	if (mins > 59) {
 		mins = mins-59;
